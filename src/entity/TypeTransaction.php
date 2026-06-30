@@ -1,6 +1,6 @@
 <?php
 enum TypeTransaction:string{
-    case EN_ATTENTE = "DEPOT";
-    case LIVREE="RETRAIT";
+    case DEPOT = "DEPOT";
+    case RETRAIT="RETRAIT";
    
 }

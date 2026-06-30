@@ -4,13 +4,167 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion Wallet</title>
-    <link rel="stylesheet" href="style.css">
 </head>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
+
+body{
+    background:#f5f6fa;
+    padding:40px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+.title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:25px;
+}
+
+.icon{
+    width:35px;
+    height:35px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#eef2ff;
+    border-radius:10px;
+}
+
+.title h2{
+    font-size:20px;
+    color:#1e293b;
+}
+
+.row{
+    display:flex;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.input-group{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+}
+
+.input-group label{
+    margin-bottom:8px;
+    font-size:14px;
+    color:#334155;
+}
+
+input,
+select{
+    height:45px;
+    border:1px solid #dcdfe6;
+    border-radius:8px;
+    padding:0 12px;
+    outline:none;
+}
+
+input:focus,
+select:focus{
+    border-color:#4f46e5;
+}
+
+.type-buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin:20px 0;
+}
+
+.depot{
+    width:120px;
+    height:55px;
+    border:none;
+    border-radius:10px;
+    background:#eafaf1;
+    color:#16a34a;
+    cursor:pointer;
+}
+
+.retrait{
+    width:120px;
+    height:55px;
+    border:none;
+    border-radius:10px;
+    background:#fdecec;
+    color:#dc2626;
+    cursor:pointer;
+}
+
+.btn-blue{
+    width:100%;
+    height:48px;
+    border:none;
+    border-radius:8px;
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+    background:linear-gradient(
+        90deg,
+        #2563eb,
+        #1d4ed8
+    );
+}
+
+.btn-purple{
+    width:100%;
+    height:48px;
+    border:none;
+    border-radius:8px;
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+    background:linear-gradient(
+        90deg,
+        #7c3aed,
+        #8b5cf6
+    );
+}
+
+.btn-blue,
+.btn-purple{
+    margin-top:10px;
+}
+
+@media(max-width:900px){
+
+    .container{
+        grid-template-columns:1fr;
+    }
+
+    .row{
+        flex-direction:column;
+    }
+} 
+</style>
 <body>
 
 <div class="container">
 
-    <!-- Informations du titulaire -->
+    
     <div class="card">
         <div class="title">
             <span class="icon">👤</span>
@@ -42,18 +196,14 @@
                 </div>
             </div>
 
-            <div class="input-group">
-                <label>Solde (FCFA)</label>
-                <input type="number" placeholder="Entrez le solde">
-            </div>
 
-            <button class="btn-blue">
+            <button class="btn-blue" type="submit">
                 Enregistrer le Wallet
             </button>
         </form>
     </div>
 
-    <!-- Transaction -->
+    
     <div class="card">
         <div class="title">
             <span class="icon">🔄</span>

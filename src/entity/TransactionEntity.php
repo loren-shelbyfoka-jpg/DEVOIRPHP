@@ -1,32 +1,39 @@
 <?php
 require_once dirname(__DIR__)."/entity/TypeTransaction.php";
+require_once dirname(__DIR__)."/entity/WalletEntity.php";
 class TransactionEntity{
     private static int $counter=0;
     private int $code;
     private int $montant;
     private DateTime $date;
     private TypeTransaction $type;
+    private WalletEntity $wallet;
 
     
 
-    public function __construct(int $code,int $montant, $date=new DateTime(),TypeTransaction $type)
+    public function __construct(TypeTransaction $type,int $montant,WalletEntity $wallet, $date=new DateTime(),int|null $code=null)
     {
-            if ($id === null) {
+            if ($code === null) {
                TransactionEntity::$counter++;
                 $this->code = TransactionEntity::$counter;
             } else {
                 $this->code = $code;
             }
-        $this->nom = $nom;
         $this->montant = $montant;
-        $this->date = $date;
+        $this->date = $date ?? new DateTime();
         $this->type = $type;
+        $this->wallet=$wallet;
+            
+        
     }
 
-   
+    public function getWallet(): WalletEntity
+    {
+        return $this->wallet;
+    }
     
 
-    public function getcode(): int
+    public function getCode(): int
     {
         return $this->code;
     }
@@ -53,6 +60,6 @@ class TransactionEntity{
 
     public function __toString()
     {
-         return "Code:" . $this->code . ", Nom: " . $this->nom . "', Montant: '" . $this->montant . "', Date: '" . $this->date .",Type: ".$this->type->value. "'}";
+         return "Code:" . $this->code . ", Montant: " . $this->montant . ", Date: " .$this->date->format('Y-m-d').",Type: ".$this->type->value. "'}";
     }
 }

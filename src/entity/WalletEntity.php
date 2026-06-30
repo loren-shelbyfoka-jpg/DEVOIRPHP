@@ -8,13 +8,17 @@ class WalletEntity{
     private int $code;
     private array $transactions;
 
-    public function __construct(int $code, string $nom,string $prenom,string $tel)
+    public function __construct( string $nom,string $prenom,string $tel,int|null $code=null)
     {
-        $this->code = $code;
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->tel = $tel;
         $this->transactions = [];
+        if ($code===null) {
+           $code=null ;
+        }else{
+            $this->code=$code;
+        }
     }
      public function getcode(): int
     {
@@ -29,7 +33,7 @@ class WalletEntity{
 
     public function getPrenom():string
     {
-        return $this->client;
+        return $this->prenom;
     }
 
     
@@ -47,7 +51,13 @@ class WalletEntity{
     {
         $total = 0.0;
         foreach ($this->transactions as $transaction) {
-            $total += $transaction->montant;
+            if ($transaction->getType()==TypeTransaction::DEPOT) {
+                 $total += $transaction->getMontant();
+            } else {
+                 $total -= $transaction->getMontant();
+            }
+            
+           
         }
         return $total;
     }
@@ -56,6 +66,10 @@ class WalletEntity{
     public function getTransactions(): array
     {
         return $this->transactions;
+    }
+    public function setTransactions(array $transactions):void
+    {
+        $this->transactions=$transactions;
     }
     
 }
