@@ -19,6 +19,10 @@ final class TransactionService{
     {
         return TransactionRepository::TransactionWalletbycode($code);
     }
+      public static function Lister():array|null
+    {
+        return TransactionRepository::SelectAllTransaction();
+    }
    public  static function FaireRetrait(TransactionEntity $transaction):bool
    {
         $transactionsW=TransactionRepository::TransactionWalletbycode($transaction->getWallet()->getCode());

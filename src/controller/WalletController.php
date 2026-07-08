@@ -1,55 +1,45 @@
 <?php
-require_once __DIR__ . '/service/WalletService.php';
-require_once __DIR__ . '/entity/WalletEntity.php';
+require_once dirname(__DIR__). '/service/WalletService.php';
+require_once dirname(__DIR__). '/entity/WalletEntity.php';
 
 
-class WalletController{
-    public function creer():void{
-        require_once __DIR__ . '/../views/Formwallet.php';
-        $nom=trim($_POST['nom'])??'';
-        $prenom=trim($_POST['prenom'])??'';
-        $tel=trim($_POST['telephone'])??'';
-        $erreurs=[];
-
-     
-        if (empty($nom)) {
-            $errors['nom']="Le nom est obligatoire";
-        }
-        if (empty($tel)) {
-            $errors['tel']="Le telephone est obligatoire";
-        }
-
-        if(count($errors)!=0) {
-            $oldData=$_POST;
-            $errorsForm=$errors;
-        require_once(dirname(dirname(__DIR__))."/templates/client/form.client.php");
-        return;
-        }
-
-        $client=ClientService::rechercherClientParTel($telephone);
-            if(  $client==null){
-                        //3- Enregister les donnees en BD
-                        $client=new ClientEntity($nom,$adresse,$telephone);
-                        $result= ClientService::enregistrerClient($client);
-                        if ($result) {
-                            //Client Enregister avec succees
-                            //Redirection vers la liste
-                            /*
-                                Redirection en Php 
-                                header("location:url");
-                                
-                            */
-                                header("location:http://localhost:8080/client-liste");
-                                exit;
-                    }
-        }
+final class WalletController{
+    private function __construct(){
+        throw new \Exception('Not implemented');
     }
+    public static function form():void{
+        require_once(dirname(dirname(__DIR__))."/views/Formwallet.php");
+    }
+     public static function creer():void{
+        $errors=[];
+        $wallet=WalletService::SearchWalletbytel($_POST['tel']);
+        if ($_POST['nom']==="") {
+            $errors["nom"]="Le nom est obligatoire";
+        }
+        if ($_POST['prenom']==="") {
+             $errors["prenom"]="Le prenom est obligatoire";
+        }
+        if ($_POST['tel']==="") {
+             $errors["tel"]="Le telephone est obligatoire";
+        }
+        if ($wallet!==FALSE) {
+           $errors['wallet']="Ce wallet existe deja ";
+        }
 
-        
+        if (count($errors)===0) {
+           $wallet= new WalletEntity($_POST['nom'],$_POST['prenom'],$_POST['tel']);
+           $result= WalletService::CreerWallet($wallet);
+        }
+        require_once(dirname(dirname(__DIR__))."/views/Formwallet.php");
+    }
+   
+    
+
+   
 
 
-     
+    
         
     }
 
-}
+
